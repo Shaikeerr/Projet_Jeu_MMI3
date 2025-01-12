@@ -9,7 +9,7 @@ public class EnnemyCollider : MonoBehaviour
     private const string PROJECTILE_TAG = "Projectile";
     public GameObject XPOrbPrefab;
     public Transform firePoint;
-    public float PowerupSummonChance = 30f;
+    public float XPSummonChance = 30f;
 
     private void OnTriggerEnter(Collider projectile)
     {
@@ -18,11 +18,11 @@ public class EnnemyCollider : MonoBehaviour
             gameObject.SetActive(false);
 
 
-            summonPowerUp();
+            summonXP();
         }
     }
 
-    void summonPowerUp()
+    void summonXP()
     {
         if (firePoint == null)
         {
@@ -30,11 +30,11 @@ public class EnnemyCollider : MonoBehaviour
             return;
         }
 
-        if (PowerupSummonChance > 0)
+        if (XPSummonChance > 0)
         {
-            float RandomPowerUp = Random.Range(0, 100);
-            Debug.Log(RandomPowerUp);
-            if (RandomPowerUp <= PowerupSummonChance)
+            float RandomXP = Random.Range(0, 100);
+            Debug.Log(RandomXP);
+            if (RandomXP <= XPSummonChance)
             {
                 GameObject projectile = Instantiate(XPOrbPrefab, firePoint.position, firePoint.rotation);
             }

@@ -17,6 +17,8 @@ public class CharacterStats : MonoBehaviour
     public Button UpgradeHealthButton;
     public Button UpgradeFireRateButton;
 
+    public float MagnetRange = 0f;
+
     private void Start()
     {
         UpgradeHealthButton.onClick.AddListener(CharacterManager.CharacterInstance.upgradeHealth);

@@ -1,26 +1,46 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class XPOrb : MonoBehaviour
 {
-    public float fireRateIncrease = 0.5f; 
-    public const string PLAYER_TAG = "Player";
-    public float duration = 5f;
+    public const string MAGNET = "Magnet";
+    public float moveSpeed = 10f; 
+    private Transform target;    
+    private bool isMovingToTarget = false;
+
 
     private void OnTriggerEnter(Collider other)
     {
-        CharacterStats xporb = other.GetComponent<CharacterStats>();
-
-        if (other.gameObject.tag == PLAYER_TAG)
-
+        
+        if (other.CompareTag(MAGNET))
         {
+            CharacterStats playerStats = other.GetComponentInParent<CharacterStats>();
 
-            int XPNumber = Random.Range(1, 4); 
+            if (playerStats != null)
+            {
+                target = other.transform; 
+                isMovingToTarget = true;  
+            }
+        }
+    }
 
-            xporb.XP += XPNumber;
+    private void Update()
+    {
+        if (isMovingToTarget && target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
 
-            gameObject.SetActive(false);
+            if (Vector3.Distance(transform.position, target.position) < 0.1f)
+            {
+                CharacterStats playerStats = target.GetComponentInParent<CharacterStats>();
+                if (playerStats != null)
+                {
+                    int XPNumber = Random.Range(1, 4);
+                    playerStats.XP += XPNumber;
+                }
+
+                isMovingToTarget = false;
+                gameObject.SetActive(false); 
+            }
         }
     }
 }

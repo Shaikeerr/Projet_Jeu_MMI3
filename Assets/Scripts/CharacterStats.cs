@@ -14,16 +14,42 @@ public class CharacterStats : MonoBehaviour
     public float fireRate = 1f;
 
     public GameObject levelUpPopup;
-    public Button UpgradeHealthButton;
-    public Button UpgradeFireRateButton;
 
     public float MagnetRange = 0f;
 
+    public void ApplyUpgrade(string upgrade)
+    {
+        switch (upgrade)
+        {
+            case "Health":
+                //logique pour améliorer la santé 
+                Debug.Log("Amélioration : Health");
+                break;
+            case "FireRate":
+                fireRate += 1f;
+                Debug.Log("Amélioration : FireRate");
+                break;
+            case "Damage":
+                Damage += 1f;
+                Debug.Log("Amélioration : Damage");
+                break;
+            case "Speed":
+                Speed += 10f;
+                Debug.Log("Amélioration : Speed");
+                break;
+            case "Magnet":
+                MagnetRange += 1f;
+                Debug.Log("Amélioration : Magnet");
+                break;
+            default:
+                Debug.LogError("Invalid upgrade: " + upgrade);
+                break;
+        }
+        ResumeGame();
+    }
+
     private void Start()
     {
-        UpgradeHealthButton.onClick.AddListener(CharacterManager.CharacterInstance.upgradeHealth);
-        UpgradeFireRateButton.onClick.AddListener(CharacterManager.CharacterInstance.upgradeFireRate);
-        UpgradeFireRateButton.onClick.AddListener(CharacterManager.CharacterInstance.upgradeFireRate);
 
     }
 
@@ -42,5 +68,6 @@ public class CharacterStats : MonoBehaviour
         Time.timeScale = 1;
         levelUpPopup.SetActive(false);
     }
+
 
 }

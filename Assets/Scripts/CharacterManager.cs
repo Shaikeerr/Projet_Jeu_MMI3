@@ -9,8 +9,13 @@ public class CharacterManager : MonoBehaviour
 
     public static CharacterManager CharacterInstance { get; private set; }
 
+    public string[] UpgradeList = { "Health", "FireRate", "Damage", "Speed", "Magnet" };
+
+
     private void Awake()
     {
+
+
         if (CharacterInstance == null)
         {
             CharacterInstance = this;
@@ -35,6 +40,26 @@ public class CharacterManager : MonoBehaviour
         characterStats.XPTillLevelUp *= characterStats.LevelMultiplier;
 
         Time.timeScale = 0;
+
+        int FirstRandomUpgrade;
+        int SecondRandomUpgrade;
+
+        for (int upgradechoice = 0; upgradechoice < 2; upgradechoice++) {
+            FirstRandomUpgrade = Random.Range(0, UpgradeList.Length);
+            SecondRandomUpgrade = Random.Range(0, UpgradeList.Length);
+            if (FirstRandomUpgrade != SecondRandomUpgrade)
+            {
+                Debug.Log(UpgradeList[FirstRandomUpgrade]);
+                Debug.Log(UpgradeList[SecondRandomUpgrade]);
+            }
+            else
+            {
+                upgradechoice--;
+            }
+
+        Debug.Log("Amélioration 1 : " + UpgradeList[FirstRandomUpgrade]);
+        Debug.Log("Amélioration 2 : " + UpgradeList[SecondRandomUpgrade]);
+        }
 
         levelUpPopup.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
@@ -67,6 +92,13 @@ public class CharacterManager : MonoBehaviour
         Debug.Log("Amélioration : Vitesse");
         characterStats.Speed += 10f;
         characterStats.ResumeGame();
+    }
+
+    public void upgradeMagnet()
+    {
+        Debug.Log("Amélioration : Aimant"); 
+        characterStats.MagnetRange += 1f;    
+        characterStats.ResumeGame();    
     }
 
 }

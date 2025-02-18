@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class CharacterStats : MonoBehaviour
     public float XPTillLevelUp = 2;
     public float Damage = 1f;
     public float Speed = 10f;
+    private int baseHealth = 100;
+    public int Health = 100;
 
     public float fireRate = 1f;
 
     public GameObject levelUpPopup;
+
+    public GameObject gameOverScreen;
 
     public float MagnetRange = 0f;
 
@@ -24,6 +29,8 @@ public class CharacterStats : MonoBehaviour
             case "Health":
                 //logique pour améliorer la santé 
                 Debug.Log("Amélioration : Health");
+                baseHealth += 10;
+                Health = baseHealth;
                 break;
             case "FireRate":
                 fireRate += 1f;
@@ -46,6 +53,26 @@ public class CharacterStats : MonoBehaviour
                 break;
         }
         ResumeGame();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Dégâts infligés au joueur : " + damage);
+        Health -= damage;
+        Debug.Log("Santé restante : " + Health);
+        if (Health <= 0)
+        {
+            Debug.Log("Le joueur est mort !");
+            gameOverScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+        }
+    }
+
+    public void Retry()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void Start()

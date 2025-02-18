@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class SummonEnnemies : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject LVL1EnemyPrefab;
+    public GameObject LV2EnemyPrefab;
+    public GameObject LV3EnemyPrefab;
+
+    public int currentWave = 1;
+
     public float spawnInterval = 2f;
     public float maxRadius = 20f;
     public float minRadius = 10f;
     public int ennemyCount = 5; 
 
+    private float timeSinceLastWave = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("SpawnEnnemy", 2f, spawnInterval);
+        StartCoroutine(StartChrono());
     }
 
     void SpawnEnnemy()
@@ -22,7 +30,18 @@ public class SummonEnnemies : MonoBehaviour
         {
             Vector3 spawnPosition = GetRandomPosition();
 
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            switch(currentWave)
+            {
+                case 1:
+                    Instantiate(LVL1EnemyPrefab, spawnPosition, Quaternion.identity);
+                    break;
+                case 2:
+                    Instantiate(LV2EnemyPrefab, spawnPosition, Quaternion.identity);
+                    break;
+                case 3:
+                    Instantiate(LV3EnemyPrefab, spawnPosition, Quaternion.identity);
+                    break;
+            }
         }
     }
 
@@ -43,5 +62,19 @@ public class SummonEnnemies : MonoBehaviour
             1, 
             transform.position.z + randomPosition.z
         );
+    }
+
+    IEnumerator StartChrono()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            timeSinceLastWave += 1f;
+            if (timeSinceLastWave >= 10f)
+            {
+                currentWave++;
+                timeSinceLastWave = 0f;
+            }
+        }
     }
 }

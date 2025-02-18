@@ -11,11 +11,30 @@ public class EnnemyCollider : MonoBehaviour
     public Transform firePoint;
     public float XPSummonChance = 30f;
 
+    private Collider enemyCollider;
+
+    private void Awake()
+    {
+        enemyCollider = GetComponent<Collider>();
+        if (enemyCollider == null)
+        {
+            Debug.LogError("Collider non trouvé sur l'ennemi.");
+        }
+    }
+
     private void OnTriggerEnter(Collider projectile)
+
     {
         if (projectile.gameObject.tag == PROJECTILE_TAG)
         {
+            if (enemyCollider != null)
+            {
+                enemyCollider.enabled = false;
+            }
+
+            // Désactiver l'objet de l'ennemi
             gameObject.SetActive(false);
+
 
 
             summonXP();

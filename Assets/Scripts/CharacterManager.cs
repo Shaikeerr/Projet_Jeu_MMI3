@@ -11,12 +11,31 @@ public class CharacterManager : MonoBehaviour
     public Button LeftUpgradeButton;
     public Button RightUpgradeButton;
 
+    public Image textContainerLeftUpgrade;
+    public Image textureLeftUpgrade;
+    public Image textContainerRightUpgrade;
+    public Image textureRightUpgrade;
+
+    public Sprite HealthSprite;
+    public Sprite HealthTextContainer;  
+    public Sprite FireRateSprite;
+    public Sprite FireRateTextContainer;
+    public Sprite DamageSprite;
+    public Sprite DamageTextContainer;
+    public Sprite SpeedSprite;
+    public Sprite SpeedTextContainer;
+    public Sprite MagnetSprite;
+    public Sprite MagnetTextContainer;
+
+
     public static CharacterManager CharacterInstance { get; private set; }
 
     public string[] UpgradeList = { "Health", "FireRate", "Damage", "Speed", "Magnet" };
 
     private void Awake()
     {
+
+
         if (CharacterInstance == null)
         {
             CharacterInstance = this;
@@ -77,11 +96,63 @@ public class CharacterManager : MonoBehaviour
         Debug.Log("Amélioration 1 : " + UpgradeList[firstRandomUpgrade]);
         Debug.Log("Amélioration 2 : " + UpgradeList[secondRandomUpgrade]);
 
-        // Configurez les boutons pour afficher les améliorations aléatoires
+        switch (UpgradeList[firstRandomUpgrade])
+        {
+            case "Health":
+                textureLeftUpgrade.sprite = HealthSprite;
+                textContainerLeftUpgrade.sprite = HealthTextContainer;
+                break;
+            case "FireRate":
+                textureLeftUpgrade.sprite = FireRateSprite;
+                textContainerLeftUpgrade.sprite = FireRateTextContainer;
+                break;
+            case "Damage":
+                textureLeftUpgrade.sprite = DamageSprite;
+                textContainerLeftUpgrade.sprite = DamageTextContainer;
+                break;
+            case "Speed":
+                textureLeftUpgrade.sprite = SpeedSprite;
+                textContainerLeftUpgrade.sprite = SpeedTextContainer;
+                break;
+            case "Magnet":
+                textureLeftUpgrade.sprite = MagnetSprite;
+                textContainerLeftUpgrade.sprite = MagnetTextContainer;
+                break;
+            default:
+                Debug.LogError("Invalid upgrade: " + UpgradeList[firstRandomUpgrade]);
+                break;
+        }
+
+        switch (UpgradeList[secondRandomUpgrade])
+        {
+            case "Health":
+                textureRightUpgrade.sprite = HealthSprite;
+                textContainerRightUpgrade.sprite = HealthTextContainer;
+                break;
+            case "FireRate":
+                textureRightUpgrade.sprite = FireRateSprite;
+                textContainerRightUpgrade.sprite = FireRateTextContainer;
+                break;
+            case "Damage":
+                textureRightUpgrade.sprite = DamageSprite;
+                textContainerRightUpgrade.sprite = DamageTextContainer;
+                break;
+            case "Speed":
+                textureRightUpgrade.sprite = SpeedSprite;
+                textContainerRightUpgrade.sprite = SpeedTextContainer;
+                break;
+            case "Magnet":
+                textureRightUpgrade.sprite = MagnetSprite;
+                textContainerRightUpgrade.sprite = MagnetTextContainer;
+                break;
+            default:
+                Debug.LogError("Invalid upgrade: " + UpgradeList[secondRandomUpgrade]);
+                break;
+        }
+
         LeftUpgradeButton.onClick.AddListener(() => ApplyUpgrade(UpgradeList[firstRandomUpgrade]));
         RightUpgradeButton.onClick.AddListener(() => ApplyUpgrade(UpgradeList[secondRandomUpgrade]));
 
-        // Ajoutez des listeners pour appliquer les améliorations lorsqu'ils sont cliqués
         LeftUpgradeButton.onClick.RemoveAllListeners();
         LeftUpgradeButton.onClick.AddListener(() => ApplyUpgrade(UpgradeList[firstRandomUpgrade]));
 

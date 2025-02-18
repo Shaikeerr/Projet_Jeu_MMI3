@@ -305,7 +305,7 @@ GameObject:
   m_Layer: 0
   m_Name: FireRate+
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3dc623a3d334f24429b4e1fcfb04c6bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e81ab575d66a97647b3906709855d74d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 539630518}
   - component: {fileID: 539630517}
   m_Layer: 5
-  m_Name: HealthUpButton
+  m_Name: RightUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -940,7 +940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1043223421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -953,7 +953,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1311325834}
   - {fileID: 1197927276}
   - {fileID: 539630516}
   m_Father: {fileID: 1143797648}
@@ -1204,7 +1203,7 @@ GameObject:
   - component: {fileID: 1197927278}
   - component: {fileID: 1197927277}
   m_Layer: 5
-  m_Name: FireRateUpButton
+  m_Name: LeftUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1312,78 +1311,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197927275}
-  m_CullTransparentMesh: 1
---- !u!1 &1311325833
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1311325834}
-  - component: {fileID: 1311325836}
-  - component: {fileID: 1311325835}
-  m_Layer: 5
-  m_Name: RawImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1311325834
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311325833}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1043223421}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1112, y: 548}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1311325835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311325833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.59607846}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1311325836
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311325833}
   m_CullTransparentMesh: 1
 --- !u!1 &1354923242
 GameObject:
@@ -1507,8 +1434,6 @@ MonoBehaviour:
   Speed: 10
   fireRate: 1
   levelUpPopup: {fileID: 1043223420}
-  UpgradeHealthButton: {fileID: 539630517}
-  UpgradeFireRateButton: {fileID: 1197927277}
   MagnetRange: 5
 --- !u!114 &1875061124
 MonoBehaviour:
@@ -1541,6 +1466,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStats: {fileID: 1875061123}
   levelUpPopup: {fileID: 1043223420}
+  LeftUpgradeButton: {fileID: 1197927277}
+  RightUpgradeButton: {fileID: 539630517}
+  textContainerLeftUpgrade: {fileID: 491317009}
+  textureLeftUpgrade: {fileID: 422933578}
+  textContainerRightUpgrade: {fileID: 1060956769}
+  textureRightUpgrade: {fileID: 1354923244}
+  HealthSprite: {fileID: 21300000, guid: 011d86f0431958a47a8f1dc17d3f1f30, type: 3}
+  HealthTextContainer: {fileID: 21300000, guid: 695f9a0b604dda044a570a34a285152d, type: 3}
+  FireRateSprite: {fileID: 21300000, guid: d355ed75133e09545a4871e536050a17, type: 3}
+  FireRateTextContainer: {fileID: 21300000, guid: bbdd611fa2c70674fa2f3ca566d1f339, type: 3}
+  DamageSprite: {fileID: 21300000, guid: e81ab575d66a97647b3906709855d74d, type: 3}
+  DamageTextContainer: {fileID: 21300000, guid: e5608d5303ec5f242a393c8120e4aa56, type: 3}
+  SpeedSprite: {fileID: 21300000, guid: 772352cd48cf6234db3128bea1c40f05, type: 3}
+  SpeedTextContainer: {fileID: 21300000, guid: 64ecf393b8b65d242b2392a9e35b47b9, type: 3}
+  MagnetSprite: {fileID: 21300000, guid: 673a796f69c3cea4e84f3d5862df547d, type: 3}
+  MagnetTextContainer: {fileID: 21300000, guid: c5441bcfb6e831c48ac800a4e67bef13, type: 3}
+  UpgradeList:
+  - Health
+  - FireRate
+  - Damage
+  - Speed
+  - Magnet
 --- !u!1 &1943880900
 GameObject:
   m_ObjectHideFlags: 0

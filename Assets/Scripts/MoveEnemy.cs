@@ -6,7 +6,7 @@ public class MoveEnemy : MonoBehaviour
 {
 
     public float speed = 5f;
-    public Transform player; 
+    private Transform player; 
 
     // Start is called before the first frame update
     void Start()

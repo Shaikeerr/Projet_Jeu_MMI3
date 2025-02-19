@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEditor.MPE;
 using UnityEngine;
 
 public class EnnemyCollider : MonoBehaviour
@@ -12,36 +10,37 @@ public class EnnemyCollider : MonoBehaviour
     public float XPSummonChance = 30f;
 
     private Collider enemyCollider;
+    private EnemyStats enemyStats;
 
     private void Awake()
     {
         enemyCollider = GetComponent<Collider>();
+        enemyStats = GetComponentInParent<EnemyStats>(); // Utilisez GetComponentInParent pour accéder à EnemyStats sur le parent
         if (enemyCollider == null)
         {
             Debug.LogError("Collider non trouvé sur l'ennemi.");
         }
-    }
-
-    private void OnTriggerEnter(Collider projectile)
-
-    {
-        if (projectile.gameObject.tag == PROJECTILE_TAG)
+        if (enemyStats == null)
         {
-            if (enemyCollider != null)
-            {
-                enemyCollider.enabled = false;
-            }
-
-            // Désactiver l'objet de l'ennemi
-            gameObject.SetActive(false);
-
-
-
-            summonXP();
+            Debug.LogError("EnemyStats non trouvé sur l'ennemi.");
         }
     }
 
-    void summonXP()
+    private void OnTriggerEnter(Collider projectile)
+    {
+        if (projectile.gameObject.tag == PROJECTILE_TAG)
+        {
+            if (enemyStats != null)
+            {
+                enemyStats.TakeDamage(10); // Remplacez 10 par la valeur de dégâts du projectile
+            }
+
+            // Détruire le projectile
+            Destroy(projectile.gameObject);
+        }
+    }
+
+    public void summonXP()
     {
         if (firePoint == null)
         {

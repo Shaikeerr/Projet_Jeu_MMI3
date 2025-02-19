@@ -9,13 +9,18 @@ public class EnemyCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             CharacterStats playerStats = other.gameObject.GetComponent<CharacterStats>();
-            if (playerStats != null)
+            EnemyStats enemyStats = GetComponent<EnemyStats>();
+            if (playerStats != null && enemyStats !=null)
             {
-                playerStats.TakeDamage(10);
+                playerStats.TakeDamage(enemyStats.Damage);
             }
 
             // Détruire l'ennemi
-            Destroy(gameObject);
+            GetComponent<Collider>().enabled = false;
+            gameObject.SetActive(false);
+
+            Destroy(gameObject, 0.1f);
+
         }
     }
 }

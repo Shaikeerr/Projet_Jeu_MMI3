@@ -15,13 +15,18 @@ public class SummonEnnemies : MonoBehaviour
     public float minRadius = 10f;
     public int ennemyCount = 5; 
 
-    private float timeSinceLastWave = 0f;
+    public int timeBetweenWaves = 5;
+    private int timeSinceLastWave = 0;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        InvokeRepeating("SpawnEnnemy", 2f, spawnInterval);
-        StartCoroutine(StartChrono());
+        if (spawnInterval != 0f)
+        {
+            InvokeRepeating("SpawnEnnemy", 2f, spawnInterval);
+            StartCoroutine(StartChrono());
+        }
+
     }
 
     void SpawnEnnemy()
@@ -38,7 +43,7 @@ public class SummonEnnemies : MonoBehaviour
                 case 2:
                     Instantiate(LV2EnemyPrefab, spawnPosition, Quaternion.identity);
                     break;
-                case 3:
+                case > 2:
                     Instantiate(LV3EnemyPrefab, spawnPosition, Quaternion.identity);
                     break;
             }
@@ -68,12 +73,12 @@ public class SummonEnnemies : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
-            timeSinceLastWave += 1f;
-            if (timeSinceLastWave >= 10f)
+            yield return new WaitForSeconds(1);
+            timeSinceLastWave += 1;
+            if (timeSinceLastWave >= timeBetweenWaves)
             {
                 currentWave++;
-                timeSinceLastWave = 0f;
+                timeSinceLastWave = 0;
             }
         }
     }

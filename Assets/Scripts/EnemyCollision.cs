@@ -15,7 +15,6 @@ public class EnemyCollision : MonoBehaviour
                 playerStats.TakeDamage(enemyStats.Damage);
             }
 
-            // Détruire l'ennemi
             GetComponent<Collider>().enabled = false;
             gameObject.SetActive(false);
 

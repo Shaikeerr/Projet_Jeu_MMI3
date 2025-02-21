@@ -10,31 +10,25 @@ public class EnemyStats : MonoBehaviour
 
     private Color baseEnemyColor;
     private MeshRenderer enemyMeshRenderer;
-    private EnnemyCollider ennemyCollider;
 
-    // Start is called before the first frame update
+    public GameObject XPOrbPrefab;
+    public Transform firePoint;
+    public float XPSummonChance = 30f;
+
     void Start()
     {
         Health = BaseHealth;
 
-        // Utilisez GetComponentInChildren pour accéder au MeshRenderer dans le sous-élément
         enemyMeshRenderer = GetComponent<MeshRenderer>();
         if (enemyMeshRenderer != null)
         {
             baseEnemyColor = enemyMeshRenderer.material.color;
         }
 
-        ennemyCollider = GetComponent<EnnemyCollider>();
-
-
-        ChangeColorBasedOnHealth();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Appel de ChangeColorBasedOnHealth pour tester
-        ChangeColorBasedOnHealth();
     }
 
     public void TakeDamage(int damage)
@@ -43,11 +37,7 @@ public class EnemyStats : MonoBehaviour
         ChangeColorBasedOnHealth();
         if (Health <= 0)
         {
-            if (ennemyCollider != null)
-            {
-                ennemyCollider.summonXP();
-            }
-
+            summonXP();
             Destroy(gameObject);
         }
     }
@@ -58,6 +48,25 @@ public class EnemyStats : MonoBehaviour
         {
             float healthPercentage = (float)Health / BaseHealth;
             enemyMeshRenderer.material.color = Color.Lerp(Color.black, baseEnemyColor, healthPercentage);
+        }
+    }
+
+    public void summonXP()
+    {
+        if (firePoint == null)
+        {
+            Debug.LogError("FirePoint non assigné dans l'inspecteur.");
+            return;
+        }
+
+        if (XPSummonChance > 0)
+        {
+            float RandomXP = Random.Range(0, 100);
+            Debug.Log(RandomXP);
+            if (RandomXP <= XPSummonChance)
+            {
+                GameObject projectile = Instantiate(XPOrbPrefab, firePoint.position, firePoint.rotation);
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ public class CollisionHandler : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
 
-    private void OnTriggerEnter(Collider other) // 'Collider' ici fait référence au type Unity
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == PLAYER_TAG)
         {

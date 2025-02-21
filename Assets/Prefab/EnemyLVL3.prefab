@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: -257444115438798598}
   - component: {fileID: -4285339735064364174}
   - component: {fileID: 8717271814353596739}
-  - component: {fileID: 6544461551835068721}
   - component: {fileID: -2840949984943544855}
   - component: {fileID: 132115514222549230}
   m_Layer: 0
@@ -102,21 +101,9 @@ MonoBehaviour:
   BaseHealth: 100
   Health: 100
   Damage: 50
---- !u!114 &6544461551835068721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4310274337215382166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 359b226c7d3ad8e418b15ccced78cd04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  XPOrbPrefab: {fileID: 1492411172164770404, guid: a0928daba7e919945942242d75b6b28f, type: 3}
+  XPOrbPrefab: {fileID: 1492411172164770404, guid: 0fdc9dcb021373d44841e0b1950ea88b, type: 3}
   firePoint: {fileID: 6754649751800598818}
-  XPSummonChance: 30
+  XPSummonChance: 100
 --- !u!23 &-2840949984943544855
 MeshRenderer:
   m_ObjectHideFlags: 0

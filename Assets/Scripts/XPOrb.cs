@@ -7,6 +7,9 @@ public class XPOrb : MonoBehaviour
     private Transform target;    
     private bool isMovingToTarget = false;
 
+    public int minXpRange;
+    public int maxXpRange;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,7 +37,7 @@ public class XPOrb : MonoBehaviour
                 CharacterStats playerStats = target.GetComponentInParent<CharacterStats>();
                 if (playerStats != null)
                 {
-                    int XPNumber = Random.Range(1, 4);
+                    int XPNumber = Random.Range(minXpRange, maxXpRange);
                     playerStats.XP += XPNumber;
                 }
 

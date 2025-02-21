@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9175583524423984141}
   m_Layer: 0
-  m_Name: PowerUp
+  m_Name: XPOrbLVL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  minXpRange: 1
+  maxXpRange: 4
 --- !u!54 &6071136550477968194
 Rigidbody:
   m_ObjectHideFlags: 0

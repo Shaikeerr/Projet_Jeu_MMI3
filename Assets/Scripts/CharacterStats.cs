@@ -7,9 +7,9 @@ public class CharacterStats : MonoBehaviour
 {
     public float XP = 0f;
     public float Level = 1f;
-    public float LevelMultiplier = 1.2f;
+    public float LevelMultiplier = 1.5f;
     public float XPTillLevelUp = 2;
-    public float Damage = 1f;
+    public int Damage = 10;
     public float Speed = 10f;
     private int baseHealth = 100;
     public int Health = 100;
@@ -27,7 +27,6 @@ public class CharacterStats : MonoBehaviour
         switch (upgrade)
         {
             case "Health":
-                //logique pour améliorer la santé 
                 Debug.Log("Amélioration : Health");
                 baseHealth += 10;
                 Health = baseHealth;
@@ -37,7 +36,7 @@ public class CharacterStats : MonoBehaviour
                 Debug.Log("Amélioration : FireRate");
                 break;
             case "Damage":
-                Damage += 1f;
+                Damage += 5;
                 Debug.Log("Amélioration : Damage");
                 break;
             case "Speed":
@@ -65,6 +64,7 @@ public class CharacterStats : MonoBehaviour
             Debug.Log("Le joueur est mort !");
             gameOverScreen.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0;
         }
     }

@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class ProjectileController : MonoBehaviour
 {
@@ -15,6 +18,27 @@ public class ProjectileController : MonoBehaviour
 
     public int projectileDamage;
 
+    public InputAction shootAction;
+
+    private Coroutine shootingCoroutine;
+
+    void Awake()
+    {
+        var inputActionAsset = new InputActionAsset();
+        shootAction.performed += ctx => StartShooting();
+        shootAction.canceled += ctx => StopShooting();
+    }
+
+    private void OnEnable()
+    {
+        shootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        shootAction.Disable();
+    }
+
     void Start()
     {
         fireRate = CharacterManager.CharacterInstance.fireRate;
@@ -23,11 +47,34 @@ public class ProjectileController : MonoBehaviour
     void Update()
     {
         fireRate = CharacterManager.CharacterInstance.fireRate;
+    }
 
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+    void StartShooting()
+    {
+        if (shootingCoroutine == null) {
+            shootingCoroutine = StartCoroutine(Shoot());
+        }
+    }
+
+    void StopShooting()
+    {
+        if (shootingCoroutine != null)
         {
-            ShootProjectile();
-            nextFireTime = Time.time + 1f / fireRate;
+            StopCoroutine(shootingCoroutine);
+            shootingCoroutine = null;
+        }
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            if (Time.time >= nextFireTime)
+            {
+                ShootProjectile();
+                nextFireTime = Time.time + 1f / fireRate;
+            }
+            yield return new WaitForSeconds(1f / fireRate);
         }
     }
 

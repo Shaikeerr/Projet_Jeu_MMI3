@@ -123,11 +123,6 @@ public class ProjectileController : MonoBehaviour
         Destroy(projectile, disapearTime);
     }
 
-    void IncreaseFireRate()
-    {
-        fireRate += 20f;
-    }
-
     internal void IncreaseFireRate(float fireRateIncrease, float duration)
     {
         throw new NotImplementedException();

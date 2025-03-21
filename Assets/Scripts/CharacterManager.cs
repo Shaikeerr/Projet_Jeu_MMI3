@@ -53,6 +53,12 @@ public class CharacterManager : MonoBehaviour
         set => characterStats.fireRate = value;
     }
 
+    public int Health
+    {
+        get => characterStats.Health;
+        set => characterStats.Health = value;   
+    }
+
     public void LevelUp()
     {
         if (characterStats == null)

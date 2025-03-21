@@ -11,7 +11,7 @@ public class CharacterStats : MonoBehaviour
     public float XPTillLevelUp = 2;
     public int Damage = 10;
     public float Speed = 10f;
-    private int baseHealth = 100;
+    public int baseHealth = 100;
     public int Health = 100;
 
     public float fireRate = 1f;
@@ -27,25 +27,25 @@ public class CharacterStats : MonoBehaviour
         switch (upgrade)
         {
             case "Health":
-                Debug.Log("Amélioration : Health");
+                Debug.Log("Amï¿½lioration : Health");
                 baseHealth += 10;
                 Health = baseHealth;
                 break;
             case "FireRate":
                 fireRate += 1f;
-                Debug.Log("Amélioration : FireRate");
+                Debug.Log("Amï¿½lioration : FireRate");
                 break;
             case "Damage":
                 Damage += 5;
-                Debug.Log("Amélioration : Damage");
+                Debug.Log("Amï¿½lioration : Damage");
                 break;
             case "Speed":
                 Speed += 10f;
-                Debug.Log("Amélioration : Speed");
+                Debug.Log("Amï¿½lioration : Speed");
                 break;
             case "Magnet":
                 MagnetRange += 1f;
-                Debug.Log("Amélioration : Magnet");
+                Debug.Log("Amï¿½lioration : Magnet");
                 break;
             default:
                 Debug.LogError("Invalid upgrade: " + upgrade);
@@ -56,9 +56,9 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Dégâts infligés au joueur : " + damage);
+        Debug.Log("Dï¿½gï¿½ts infligï¿½s au joueur : " + damage);
         Health -= damage;
-        Debug.Log("Santé restante : " + Health);
+        Debug.Log("Santï¿½ restante : " + Health);
         if (Health <= 0)
         {
             Debug.Log("Le joueur est mort !");

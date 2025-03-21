@@ -18,20 +18,20 @@ public class StatModifier : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter appelé pour " + other.gameObject.name);
+        Debug.Log("OnTriggerEnter appelï¿½ pour " + other.gameObject.name);
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision détectée avec le joueur !");
+            Debug.Log("Collision dï¿½tectï¿½e avec le joueur !");
             CharacterStats characterStats = other.gameObject.GetComponent<CharacterStats>();
             if (characterStats != null)
             {
-                Debug.Log("CharacterStats trouvé, modification des stats...");
+                Debug.Log("CharacterStats trouvï¿½, modification des stats...");
                 ModifyStat(characterStats);
             }
             else
             {
-                Debug.LogError("CharacterStats non trouvé sur le joueur.");
+                Debug.LogError("CharacterStats non trouvï¿½ sur le joueur.");
             }
         }
     }
@@ -42,6 +42,7 @@ public class StatModifier : MonoBehaviour
         {
             case StatType.Health:
                 characterStats.Health += modificationAmount;
+                characterStats.baseHealth += modificationAmount;
                 break;
             case StatType.FireRate:
                 characterStats.fireRate += modificationAmount;
@@ -59,6 +60,6 @@ public class StatModifier : MonoBehaviour
                 Debug.LogError("Invalid stat: " + statToModify);
                 break;
         }
-        Debug.Log("Stat " + statToModify + " modifiée de " + modificationAmount);
+        Debug.Log("Stat " + statToModify + " modifiï¿½e de " + modificationAmount);
     }
 }

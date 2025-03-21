@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Healthbar : MonoBehaviour
+public class XPBar : MonoBehaviour
 {
+
     private CharacterStats characterStats;
-    public Text HealthText; 
-    public Image HealthFillImage;
+    public Text XPText; 
+    public Slider XPSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -17,31 +18,32 @@ public class Healthbar : MonoBehaviour
         if (player != null)
         {
             characterStats = player.GetComponent<CharacterStats>();
-            UpdateHealthDisplay();
+            UpdateXPDisplay();
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateHealthDisplay();
+        UpdateXPDisplay();
     }
 
-    void UpdateHealthDisplay()
+        void UpdateXPDisplay()
     {
         if (characterStats == null)
         {
             return;
         }
-        HealthText.text = $"{characterStats.Health} / {characterStats.baseHealth}";
-        
-        if (characterStats.baseHealth > 0)
+        XPText.text = $"Level: {characterStats.Level} - {characterStats.XP.ToString("F2")} / {characterStats.XPTillLevelUp.ToString("F2")} XP";
+        if (characterStats.XPTillLevelUp > 0)
         {
-            HealthFillImage.fillAmount = (float)characterStats.Health / characterStats.baseHealth;
+            XPSlider.value = (float)characterStats.XP / characterStats.XPTillLevelUp;
         }
         else
         {
-            HealthFillImage.fillAmount = 0;
+            XPSlider.value = 0;
         }
+
     }
 }

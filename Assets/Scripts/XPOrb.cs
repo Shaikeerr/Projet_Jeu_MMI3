@@ -3,6 +3,9 @@
 public class XPOrb : MonoBehaviour
 {
     public const string MAGNET = "Magnet";
+
+    private GameObject player;
+    private CharacterStats characterStats;
     public float moveSpeed = 10f; 
     private Transform target;    
     private bool isMovingToTarget = false;
@@ -11,6 +14,20 @@ public class XPOrb : MonoBehaviour
     public int maxXpRange;
 
 
+    private void Awake ()
+    {
+        player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            characterStats = player.GetComponent<CharacterStats>();
+            UpdateSpeed(); 
+        }
+        else
+        {
+            Debug.LogWarning("Player object not found in the scene.");
+        }
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         
@@ -26,8 +43,30 @@ public class XPOrb : MonoBehaviour
         }
     }
 
+    private void UpdateSpeed()
+    {
+        if (characterStats != null)
+        {
+            moveSpeed = characterStats.Speed + 5f; 
+        }
+        else
+        {
+            Debug.LogWarning("CharacterStats component not found on parent object.");
+        }
+    }
+
     private void Update()
     {
+
+        if (characterStats != null)
+        {
+            UpdateSpeed(); 
+        }
+        else
+        {
+            Debug.LogWarning("CharacterStats component not found on parent object.");
+        }
+
         if (isMovingToTarget && target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);

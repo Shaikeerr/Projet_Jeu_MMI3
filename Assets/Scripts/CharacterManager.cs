@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class CharacterManager : MonoBehaviour
     public Sprite MagnetSprite;
     public Sprite MagnetTextContainer;
 
+        private PlayerControls inputActions;
+    private Button currentButton;
+
 
     public static CharacterManager CharacterInstance { get; private set; }
 
@@ -35,6 +39,7 @@ public class CharacterManager : MonoBehaviour
     private void Awake()
     {
 
+        inputActions = new PlayerControls();
 
         if (CharacterInstance == null)
         {
@@ -47,6 +52,37 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+private void OnEnable()
+{
+    inputActions.Player.Enable();
+    inputActions.Player.UpgradeButtons.performed += OnUpgradeButtons;
+
+    // Set the default selected button
+    currentButton = LeftUpgradeButton;
+    currentButton.Select();
+}
+
+private void OnDisable()
+{
+    inputActions.Player.Disable();
+    inputActions.Player.UpgradeButtons.performed -= OnUpgradeButtons;
+}
+
+private void OnUpgradeButtons(InputAction.CallbackContext context)
+{
+    float input = context.ReadValue<float>();
+
+    if (input > 0) // RB pressed
+    {
+        Debug.Log("RB pressed");
+        RightUpgradeButton.onClick.Invoke(); // Trigger the right button's onClick event
+    }
+    else if (input < 0) // LB pressed
+    {
+        Debug.Log("LB pressed");
+        LeftUpgradeButton.onClick.Invoke(); // Trigger the left button's onClick event
+    }
+}
     public float fireRate
     {
         get => characterStats.fireRate;
@@ -63,25 +99,25 @@ public class CharacterManager : MonoBehaviour
     {
         if (characterStats == null)
         {
-            Debug.LogError("characterStats n'est pas assigné.");
+            Debug.LogError("characterStats n'est pas assignï¿½.");
             return;
         }
 
         if (levelUpPopup == null)
         {
-            Debug.LogError("levelUpPopup n'est pas assigné.");
+            Debug.LogError("levelUpPopup n'est pas assignï¿½.");
             return;
         }
 
         if (LeftUpgradeButton == null)
         {
-            Debug.LogError("LeftUpgradeButton n'est pas assigné.");
+            Debug.LogError("LeftUpgradeButton n'est pas assignï¿½.");
             return;
         }
 
         if (RightUpgradeButton == null)
         {
-            Debug.LogError("RightUpgradeButton n'est pas assigné.");
+            Debug.LogError("RightUpgradeButton n'est pas assignï¿½.");
             return;
         }
 
@@ -99,8 +135,8 @@ public class CharacterManager : MonoBehaviour
             secondRandomUpgrade = Random.Range(0, UpgradeList.Length);
         }
 
-        Debug.Log("Amélioration 1 : " + UpgradeList[firstRandomUpgrade]);
-        Debug.Log("Amélioration 2 : " + UpgradeList[secondRandomUpgrade]);
+        Debug.Log("Amï¿½lioration 1 : " + UpgradeList[firstRandomUpgrade]);
+        Debug.Log("Amï¿½lioration 2 : " + UpgradeList[secondRandomUpgrade]);
 
         switch (UpgradeList[firstRandomUpgrade])
         {

@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 
 public class ProjectileController : MonoBehaviour
 {
-    [Header("Paramètres du Projectile")]
+    [Header("Paramï¿½tres du Projectile")]
     public GameObject projectilePrefab;
     public float projectileSpeed = 20f;
     public Transform firePoint;
 
-    [Header("Paramètres de Tir")]
+    [Header("Paramï¿½tres de Tir")]
     float fireRate;
     public float nextFireTime = 0f;
     public float disapearTime = 5f;
@@ -22,21 +22,36 @@ public class ProjectileController : MonoBehaviour
 
     private Coroutine shootingCoroutine;
 
+     public float rotationSpeed = 50f; 
+    private PlayerControls inputActions;
+    private Vector2 aimInput; 
+
     void Awake()
     {
         var inputActionAsset = new InputActionAsset();
         shootAction.performed += ctx => StartShooting();
         shootAction.canceled += ctx => StopShooting();
+        inputActions = new PlayerControls();
     }
 
     private void OnEnable()
     {
         shootAction.Enable();
+        inputActions.Player.Enable();
+        inputActions.Player.Aim.performed += OnAim;
+        inputActions.Player.Aim.canceled += OnAim;
     }
 
     private void OnDisable()
     {
         shootAction.Disable();
+        inputActions.Player.Aim.performed -= OnAim;
+        inputActions.Player.Aim.canceled -= OnAim;
+    }
+
+     private void OnAim(InputAction.CallbackContext context)
+    {
+        aimInput = context.ReadValue<Vector2>();
     }
 
     void Start()
@@ -44,10 +59,25 @@ public class ProjectileController : MonoBehaviour
         fireRate = CharacterManager.CharacterInstance.fireRate;
     }
 
-    void Update()
+void Update()
+{
+    if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
     {
-        fireRate = CharacterManager.CharacterInstance.fireRate;
+        // Show the cursor when the mouse is moved
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
+        // Rotate the character using the mouse
+        RotateCharacterToMouse();
     }
+    else if (aimInput.sqrMagnitude > 0.01f)
+    {
+        // Rotate the character using the joystick
+        RotateCharacter();
+    }
+    
+    fireRate = CharacterManager.CharacterInstance.fireRate;
+}
 
     void StartShooting()
     {
@@ -82,7 +112,7 @@ public class ProjectileController : MonoBehaviour
     {
         if (firePoint == null)
         {
-            Debug.LogError("FirePoint non assigné dans l'inspecteur.");
+            Debug.LogError("FirePoint non assignï¿½ dans l'inspecteur.");
             return;
         }
 
@@ -93,7 +123,7 @@ public class ProjectileController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("CharacterStats non trouvé sur le joueur.");
+            Debug.LogError("CharacterStats non trouvï¿½ sur le joueur.");
             return;
         }
 
@@ -107,7 +137,7 @@ public class ProjectileController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Le prefab du projectile n'a pas de Rigidbody attaché.");
+            Debug.LogError("Le prefab du projectile n'a pas de Rigidbody attachï¿½.");
         }
 
         ProjectileStats projectileStats = projectile.GetComponent<ProjectileStats>();
@@ -117,7 +147,7 @@ public class ProjectileController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Le prefab du projectile n'a pas de script ProjectileStats attaché.");
+            Debug.LogError("Le prefab du projectile n'a pas de script ProjectileStats attachï¿½.");
         }
 
         Destroy(projectile, disapearTime);
@@ -132,4 +162,44 @@ public class ProjectileController : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+
+void RotateCharacterToMouse()
+{
+    Vector2 mousePosition = Mouse.current.position.ReadValue();
+    
+    Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+    
+    Plane groundPlane = new Plane(Vector3.up, transform.position);
+    
+    float rayDistance;
+    
+    if (groundPlane.Raycast(ray, out rayDistance))
+    {
+        Vector3 targetPoint = ray.GetPoint(rayDistance);
+        
+        Vector3 direction = (targetPoint - transform.position).normalized;
+        
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation, 
+                lookRotation, 
+                Time.deltaTime * rotationSpeed
+            );
+        }
+    }
+}
+
+private void RotateCharacter()
+{
+    Vector3 direction = new Vector3(aimInput.x, 0f, aimInput.y);
+
+    if (direction.sqrMagnitude > 0.01f) 
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(direction); 
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+    }
+}
 }

@@ -8,25 +8,24 @@ public class SummonEnnemies : MonoBehaviour
     public GameObject LV2EnemyPrefab;
     public GameObject LV3EnemyPrefab;
 
-    public int currentWave = 1;
+    public int currentWave = 0;
 
-    public float spawnInterval = 2f;
+    public float spawnInterval = 10f;
     public float maxRadius = 20f;
     public float minRadius = 10f;
     public int ennemyCount = 5; 
 
-    public int timeBetweenWaves = 5;
-    private int timeSinceLastWave = 0;
-
+    public int timeBetweenWaves = 5; // Initial time between waves set to 5 seconds
+    public int timeSinceLastWave = 0;
 
     void Start()
     {
         if (spawnInterval != 0f)
         {
-            InvokeRepeating("SpawnEnnemy", 2f, spawnInterval);
+            SpawnEnnemy();
+            InvokeRepeating("SpawnEnnemy", 0f, spawnInterval);
             StartCoroutine(StartChrono());
         }
-
     }
 
     void SpawnEnnemy()
@@ -37,6 +36,7 @@ public class SummonEnnemies : MonoBehaviour
 
             switch(currentWave)
             {
+                case 0:
                 case 1:
                     Instantiate(LVL1EnemyPrefab, spawnPosition, Quaternion.identity);
                     break;
@@ -79,6 +79,12 @@ public class SummonEnnemies : MonoBehaviour
             {
                 currentWave++;
                 timeSinceLastWave = 0;
+
+                // Update timeBetweenWaves after the first wave
+                if (currentWave == 1)
+                {
+                    timeBetweenWaves = 30; // Set the desired time between waves for subsequent waves
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ public class CharacterStats : MonoBehaviour
     public float LevelMultiplier = 1.5f;
     public float XPTillLevelUp = 2;
     public int Damage = 10;
-    public float Speed = 10f;
+    public float Speed = 3f;
     public int baseHealth = 100;
     public int Health = 100;
 
@@ -40,7 +40,7 @@ public class CharacterStats : MonoBehaviour
                 Debug.Log("Am�lioration : Damage");
                 break;
             case "Speed":
-                Speed += 10f;
+                Speed += 2f;
                 Debug.Log("Am�lioration : Speed");
                 break;
             case "Magnet":
@@ -90,8 +90,6 @@ public class CharacterStats : MonoBehaviour
 
     public void ResumeGame()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         Time.timeScale = 1;
         levelUpPopup.SetActive(false);
     }

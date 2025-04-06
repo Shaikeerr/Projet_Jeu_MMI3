@@ -5,42 +5,42 @@ using UnityEngine.InputSystem;
 public class ReturnMenu : MonoBehaviour
 {
 
-    public InputAction ReturnToMenu;
+    public PlayerControls inputActions;
 
-    void Awake()
+    private void Awake()
     {
-        var inputActionAsset = new InputActionAsset();
+       inputActions = new PlayerControls();
     }
 
     private void OnEnable()
     {
-        ReturnToMenu.Enable();
+        inputActions.Player.Menu.Enable();
+        inputActions.Player.Menu.performed += OnMenu;
     }
 
     private void OnDisable()
     {
-        ReturnToMenu.Disable();
+        inputActions.Player.Menu.Disable();
+        inputActions.Player.Menu.performed -= OnMenu;
     }
 
-    void Start()
+    private void OnMenu(InputAction.CallbackContext context)
     {
-        ReturnToMenu.performed += ctx => GoBackToMenu();
+        GetBackToMenu();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GoBackToMenu();
-        }
-    }
-
-    void GoBackToMenu()
+    private void GetBackToMenu()
     {
         Debug.Log("Retour au menu !");
-        SceneManager.LoadScene(0);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        SceneManager.LoadScene(0); 
         Time.timeScale = 0;
+
+        if (CharacterManager.CharacterInstance != null)
+    {
+        Destroy(CharacterManager.CharacterInstance.gameObject);
+    }
+    
     }
 }
+
+    

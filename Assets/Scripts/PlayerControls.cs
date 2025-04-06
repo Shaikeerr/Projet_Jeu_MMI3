@@ -46,9 +46,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""UpgradeButtons"",
+                    ""name"": ""LeftUpgrade"",
                     ""type"": ""Button"",
                     ""id"": ""4a1eea63-a3fe-4aa4-819b-4a00499b34ba"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightUpgrade"",
+                    ""type"": ""Button"",
+                    ""id"": ""828edbad-36e4-4725-b839-21d7c6f827fb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa83520d-da9f-4127-ac7e-b18b1eeccf48"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -151,18 +169,99 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""UpgradeButtons"",
+                    ""action"": ""LeftUpgrade"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d94723ff-b07f-49ce-9f30-d0f6a5d737b3"",
+                    ""id"": ""283e733d-20bb-45c0-8013-82c7552543f0"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""UpgradeButtons"",
+                    ""action"": ""RightUpgrade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2614279e-2a95-401c-be97-8e203c7cbf6e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d59a942-118d-468e-9c9b-8daab5038b41"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e193c10d-c85e-428f-86b3-e8b5f2ef6b59"",
+                    ""path"": ""<DualSenseGamepadHID>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""35817ee0-8d5c-4ce1-bf9f-46c9f4597e66"",
+            ""actions"": [
+                {
+                    ""name"": ""SelectDebugLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""e20d410d-7d3c-4b37-af96-288e07e6a90a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectGameLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""22bee527-a179-45cc-920d-4a937a83382b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""50534bb1-6442-4acf-9a00-3d95d2d49e77"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectDebugLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d962cd08-2e77-422c-a71c-0f369ea94f04"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectGameLevel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -175,12 +274,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
-        m_Player_UpgradeButtons = m_Player.FindAction("UpgradeButtons", throwIfNotFound: true);
+        m_Player_LeftUpgrade = m_Player.FindAction("LeftUpgrade", throwIfNotFound: true);
+        m_Player_RightUpgrade = m_Player.FindAction("RightUpgrade", throwIfNotFound: true);
+        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_SelectDebugLevel = m_Menu.FindAction("SelectDebugLevel", throwIfNotFound: true);
+        m_Menu_SelectGameLevel = m_Menu.FindAction("SelectGameLevel", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControls.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Menu.enabled, "This will cause a leak and performance issues, PlayerControls.Menu.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -244,14 +350,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Aim;
-    private readonly InputAction m_Player_UpgradeButtons;
+    private readonly InputAction m_Player_LeftUpgrade;
+    private readonly InputAction m_Player_RightUpgrade;
+    private readonly InputAction m_Player_Menu;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
-        public InputAction @UpgradeButtons => m_Wrapper.m_Player_UpgradeButtons;
+        public InputAction @LeftUpgrade => m_Wrapper.m_Player_LeftUpgrade;
+        public InputAction @RightUpgrade => m_Wrapper.m_Player_RightUpgrade;
+        public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -267,9 +377,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
-            @UpgradeButtons.started += instance.OnUpgradeButtons;
-            @UpgradeButtons.performed += instance.OnUpgradeButtons;
-            @UpgradeButtons.canceled += instance.OnUpgradeButtons;
+            @LeftUpgrade.started += instance.OnLeftUpgrade;
+            @LeftUpgrade.performed += instance.OnLeftUpgrade;
+            @LeftUpgrade.canceled += instance.OnLeftUpgrade;
+            @RightUpgrade.started += instance.OnRightUpgrade;
+            @RightUpgrade.performed += instance.OnRightUpgrade;
+            @RightUpgrade.canceled += instance.OnRightUpgrade;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -280,9 +396,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
-            @UpgradeButtons.started -= instance.OnUpgradeButtons;
-            @UpgradeButtons.performed -= instance.OnUpgradeButtons;
-            @UpgradeButtons.canceled -= instance.OnUpgradeButtons;
+            @LeftUpgrade.started -= instance.OnLeftUpgrade;
+            @LeftUpgrade.performed -= instance.OnLeftUpgrade;
+            @LeftUpgrade.canceled -= instance.OnLeftUpgrade;
+            @RightUpgrade.started -= instance.OnRightUpgrade;
+            @RightUpgrade.performed -= instance.OnRightUpgrade;
+            @RightUpgrade.canceled -= instance.OnRightUpgrade;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -300,10 +422,71 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_SelectDebugLevel;
+    private readonly InputAction m_Menu_SelectGameLevel;
+    public struct MenuActions
+    {
+        private @PlayerControls m_Wrapper;
+        public MenuActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SelectDebugLevel => m_Wrapper.m_Menu_SelectDebugLevel;
+        public InputAction @SelectGameLevel => m_Wrapper.m_Menu_SelectGameLevel;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @SelectDebugLevel.started += instance.OnSelectDebugLevel;
+            @SelectDebugLevel.performed += instance.OnSelectDebugLevel;
+            @SelectDebugLevel.canceled += instance.OnSelectDebugLevel;
+            @SelectGameLevel.started += instance.OnSelectGameLevel;
+            @SelectGameLevel.performed += instance.OnSelectGameLevel;
+            @SelectGameLevel.canceled += instance.OnSelectGameLevel;
+        }
+
+        private void UnregisterCallbacks(IMenuActions instance)
+        {
+            @SelectDebugLevel.started -= instance.OnSelectDebugLevel;
+            @SelectDebugLevel.performed -= instance.OnSelectDebugLevel;
+            @SelectDebugLevel.canceled -= instance.OnSelectDebugLevel;
+            @SelectGameLevel.started -= instance.OnSelectGameLevel;
+            @SelectGameLevel.performed -= instance.OnSelectGameLevel;
+            @SelectGameLevel.canceled -= instance.OnSelectGameLevel;
+        }
+
+        public void RemoveCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
-        void OnUpgradeButtons(InputAction.CallbackContext context);
+        void OnLeftUpgrade(InputAction.CallbackContext context);
+        void OnRightUpgrade(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnSelectDebugLevel(InputAction.CallbackContext context);
+        void OnSelectGameLevel(InputAction.CallbackContext context);
     }
 }

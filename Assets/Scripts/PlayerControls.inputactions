@@ -24,9 +24,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "UpgradeButtons",
+                    "name": "LeftUpgrade",
                     "type": "Button",
                     "id": "4a1eea63-a3fe-4aa4-819b-4a00499b34ba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightUpgrade",
+                    "type": "Button",
+                    "id": "828edbad-36e4-4725-b839-21d7c6f827fb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "aa83520d-da9f-4127-ac7e-b18b1eeccf48",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -129,18 +147,99 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UpgradeButtons",
+                    "action": "LeftUpgrade",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d94723ff-b07f-49ce-9f30-d0f6a5d737b3",
+                    "id": "283e733d-20bb-45c0-8013-82c7552543f0",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UpgradeButtons",
+                    "action": "RightUpgrade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2614279e-2a95-401c-be97-8e203c7cbf6e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d59a942-118d-468e-9c9b-8daab5038b41",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e193c10d-c85e-428f-86b3-e8b5f2ef6b59",
+                    "path": "<DualSenseGamepadHID>/touchpadButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "35817ee0-8d5c-4ce1-bf9f-46c9f4597e66",
+            "actions": [
+                {
+                    "name": "SelectDebugLevel",
+                    "type": "Button",
+                    "id": "e20d410d-7d3c-4b37-af96-288e07e6a90a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectGameLevel",
+                    "type": "Button",
+                    "id": "22bee527-a179-45cc-920d-4a937a83382b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "50534bb1-6442-4acf-9a00-3d95d2d49e77",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectDebugLevel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d962cd08-2e77-422c-a71c-0f369ea94f04",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectGameLevel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

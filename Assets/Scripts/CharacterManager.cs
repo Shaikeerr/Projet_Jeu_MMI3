@@ -55,7 +55,8 @@ public class CharacterManager : MonoBehaviour
 private void OnEnable()
 {
     inputActions.Player.Enable();
-    inputActions.Player.UpgradeButtons.performed += OnUpgradeButtons;
+    inputActions.Player.LeftUpgrade.performed += OnLeftUpgrade;
+    inputActions.Player.RightUpgrade.performed += OnRightUpgrade;
 
     // Set the default selected button
     currentButton = LeftUpgradeButton;
@@ -65,24 +66,22 @@ private void OnEnable()
 private void OnDisable()
 {
     inputActions.Player.Disable();
-    inputActions.Player.UpgradeButtons.performed -= OnUpgradeButtons;
+    inputActions.Player.LeftUpgrade.performed -= OnLeftUpgrade;
+    inputActions.Player.RightUpgrade.performed -= OnRightUpgrade;
 }
 
-private void OnUpgradeButtons(InputAction.CallbackContext context)
-{
-    float input = context.ReadValue<float>();
-
-    if (input > 0) // RB pressed
-    {
-        Debug.Log("RB pressed");
-        RightUpgradeButton.onClick.Invoke(); // Trigger the right button's onClick event
-    }
-    else if (input < 0) // LB pressed
+    private void OnLeftUpgrade(InputAction.CallbackContext context)
     {
         Debug.Log("LB pressed");
-        LeftUpgradeButton.onClick.Invoke(); // Trigger the left button's onClick event
+        LeftUpgradeButton.onClick.Invoke();
     }
-}
+
+    private void OnRightUpgrade(InputAction.CallbackContext context)
+    {
+        Debug.Log("RB pressed");
+        RightUpgradeButton.onClick.Invoke();
+    }
+
     public float fireRate
     {
         get => characterStats.fireRate;
@@ -210,6 +209,9 @@ private void OnUpgradeButtons(InputAction.CallbackContext context)
     {
         characterStats.ApplyUpgrade(upgrade);
         characterStats.ResumeGame();
+        LeftUpgradeButton.onClick.RemoveAllListeners();
+        RightUpgradeButton.onClick.RemoveAllListeners();
+        levelUpPopup.SetActive(false);
     }
     
 }

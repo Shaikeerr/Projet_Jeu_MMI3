@@ -16,21 +16,19 @@ public class MoveEnemy : MonoBehaviour
         {
             player = playerObject.transform;
         }
-        else
-        {
-            Debug.LogError("Player not found! Ensure your player GameObject has the 'Player' tag.");
-        }
     }
 
     void Update()
     {
         if (player != null) {
 
-            Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z);
+            Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z); 
 
             Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
             transform.position = newPosition;
+
+            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
         }
     }
 }

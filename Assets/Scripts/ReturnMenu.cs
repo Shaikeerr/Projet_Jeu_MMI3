@@ -17,7 +17,6 @@ public class ReturnMenu : MonoBehaviour
         inputActions.Player.Menu.Enable();
         inputActions.Player.Menu.performed += OnMenu;
     }
-
     private void OnDisable()
     {
         inputActions.Player.Menu.Disable();
@@ -29,9 +28,8 @@ public class ReturnMenu : MonoBehaviour
         GetBackToMenu();
     }
 
-    private void GetBackToMenu()
+    public void GetBackToMenu()
     {
-        Debug.Log("Retour au menu !");
         SceneManager.LoadScene(0); 
         Time.timeScale = 0;
 

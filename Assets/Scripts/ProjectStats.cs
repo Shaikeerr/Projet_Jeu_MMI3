@@ -13,8 +13,7 @@ public class ProjectileStats : MonoBehaviour
             EnemyStats enemyStats = other.GetComponent<EnemyStats>();
             if (enemyStats != null)
             {
-                enemyStats.TakeDamage(damage);
-                Debug.Log("Dégâts infligés à l'ennemi : " + damage);    
+                enemyStats.TakeDamage(damage); 
             }
 
             Destroy(gameObject);

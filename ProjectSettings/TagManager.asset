@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - Ground
   - Magnet
+  - WorldBorder
   layers:
   - Default
   - TransparentFX

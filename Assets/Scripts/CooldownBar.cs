@@ -9,7 +9,6 @@ public class CooldownBar : MonoBehaviour
     public Text CooldownText;
     public Slider CooldownSlider;
 
-    // Start is called before the first frame update
     void Start()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -17,14 +16,12 @@ public class CooldownBar : MonoBehaviour
         if (player != null)
         {
             summonEnnemies = player.GetComponent<SummonEnnemies>();
-            UpdateCooldownDisplay();
+            UpdateCooldownDisplay(); // Initial call to set the display
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
-        UpdateCooldownDisplay();
+        UpdateCooldownDisplay(); // Update the cooldown display every frame
     }
 
     void UpdateCooldownDisplay()
@@ -33,12 +30,10 @@ public class CooldownBar : MonoBehaviour
         {
             return;
         }
-
         CooldownText.text = $"Wave {summonEnnemies.currentWave}";
-
         if (summonEnnemies.timeBetweenWaves > 0)
         {
-            CooldownSlider.value = 1 - (float)summonEnnemies.timeSinceLastWave / summonEnnemies.timeBetweenWaves;
+            CooldownSlider.value = 1 - (float)summonEnnemies.timeSinceLastWave / summonEnnemies.timeBetweenWaves; // Do maths to get a value between 0 and 1 and invert it to make a decreasing bar)
         }
         else
         {

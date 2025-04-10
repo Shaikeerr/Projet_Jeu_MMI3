@@ -21,10 +21,6 @@ public class MovePlayer : MonoBehaviour
         {
             moveSpeed = characterStats.Speed;
         }
-        else
-        {
-            Debug.LogWarning("CharacterStats component not found on parent object.");
-        }
     }
 
     private void OnEnable()
@@ -53,13 +49,8 @@ public class MovePlayer : MonoBehaviour
         {
             moveSpeed = characterStats.Speed;
         }
-        else
-        {
-            Debug.LogWarning("CharacterStats component not found on parent object.");
-        }
 
-        Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
-
+        Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y); 
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
     }
 }

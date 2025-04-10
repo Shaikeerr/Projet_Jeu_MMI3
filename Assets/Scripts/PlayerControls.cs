@@ -240,6 +240,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectReset"",
+                    ""type"": ""Button"",
+                    ""id"": ""39fd8505-0cdc-4e2c-a97c-f39e5f787577"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -264,6 +273,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SelectGameLevel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8d5e989-19b6-4862-920a-a273a6ca2ff8"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectReset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -281,6 +301,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_SelectDebugLevel = m_Menu.FindAction("SelectDebugLevel", throwIfNotFound: true);
         m_Menu_SelectGameLevel = m_Menu.FindAction("SelectGameLevel", throwIfNotFound: true);
+        m_Menu_SelectReset = m_Menu.FindAction("SelectReset", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -428,12 +449,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
     private readonly InputAction m_Menu_SelectDebugLevel;
     private readonly InputAction m_Menu_SelectGameLevel;
+    private readonly InputAction m_Menu_SelectReset;
     public struct MenuActions
     {
         private @PlayerControls m_Wrapper;
         public MenuActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @SelectDebugLevel => m_Wrapper.m_Menu_SelectDebugLevel;
         public InputAction @SelectGameLevel => m_Wrapper.m_Menu_SelectGameLevel;
+        public InputAction @SelectReset => m_Wrapper.m_Menu_SelectReset;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -449,6 +472,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectGameLevel.started += instance.OnSelectGameLevel;
             @SelectGameLevel.performed += instance.OnSelectGameLevel;
             @SelectGameLevel.canceled += instance.OnSelectGameLevel;
+            @SelectReset.started += instance.OnSelectReset;
+            @SelectReset.performed += instance.OnSelectReset;
+            @SelectReset.canceled += instance.OnSelectReset;
         }
 
         private void UnregisterCallbacks(IMenuActions instance)
@@ -459,6 +485,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectGameLevel.started -= instance.OnSelectGameLevel;
             @SelectGameLevel.performed -= instance.OnSelectGameLevel;
             @SelectGameLevel.canceled -= instance.OnSelectGameLevel;
+            @SelectReset.started -= instance.OnSelectReset;
+            @SelectReset.performed -= instance.OnSelectReset;
+            @SelectReset.canceled -= instance.OnSelectReset;
         }
 
         public void RemoveCallbacks(IMenuActions instance)
@@ -488,5 +517,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnSelectDebugLevel(InputAction.CallbackContext context);
         void OnSelectGameLevel(InputAction.CallbackContext context);
+        void OnSelectReset(InputAction.CallbackContext context);
     }
 }

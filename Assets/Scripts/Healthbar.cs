@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Healthbar : MonoBehaviour
 {
     private CharacterStats characterStats;
+
+    [Header("Healthbar UI Elements")]
     public Text HealthText; 
     public Image HealthFillImage;
 
@@ -37,7 +39,7 @@ public class Healthbar : MonoBehaviour
         
         if (characterStats.baseHealth > 0)
         {
-            HealthFillImage.fillAmount = (float)characterStats.Health / characterStats.baseHealth;
+            HealthFillImage.fillAmount = (float)characterStats.Health / characterStats.baseHealth; // Health bar is 2 images, one for the background and one for the fill. The fill amount is a value between 0 and 1, so we divide the current health by the base health to get a percentage
         }
         else
         {

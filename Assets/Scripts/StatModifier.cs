@@ -18,15 +18,12 @@ public class StatModifier : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter appel� pour " + other.gameObject.name);
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision d�tect�e avec le joueur !");
             CharacterStats characterStats = other.gameObject.GetComponent<CharacterStats>();
             if (characterStats != null)
             {
-                Debug.Log("CharacterStats trouv�, modification des stats...");
                 ModifyStat(characterStats);
             }
             else
@@ -60,6 +57,5 @@ public class StatModifier : MonoBehaviour
                 Debug.LogError("Invalid stat: " + statToModify);
                 break;
         }
-        Debug.Log("Stat " + statToModify + " modifi�e de " + modificationAmount);
     }
 }

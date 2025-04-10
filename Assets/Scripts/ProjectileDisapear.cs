@@ -9,7 +9,6 @@ public class ProjectileDisapear : MonoBehaviour
     {
         if (enemy.gameObject.tag == ENEMY_TAG)
         {
-            Debug.Log("Destruction du projectile");
             Destroy(this.gameObject);
         }
     }

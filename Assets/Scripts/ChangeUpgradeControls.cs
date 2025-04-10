@@ -8,12 +8,11 @@ public class ChangeUpgradeControls : MonoBehaviour
     public Image LeftUpgradeControlsImage;
     public Image RightUpgradeControlsImage; 
 
+    [Header("Gamepad Sprites")]
     public Sprite XBOXLB; // Left Bumper || LeftUpgradeButton
     public Sprite XBOXRB; // Right Bumper || RightUpgradeButton
-
     public Sprite PSL1; // Left Bumper || LeftUpgradeButton
     public Sprite PSR1; // Right Bumper || RightUpgradeButton
-
     public Sprite NoneSprite; // Nothing is no gamepad is detected
 
 
@@ -55,7 +54,7 @@ public class ChangeUpgradeControls : MonoBehaviour
                     LeftUpgradeControlsImage.sprite = XBOXLB;
                     RightUpgradeControlsImage.sprite = XBOXRB;
                 }
-                else if (gamepad.displayName.Contains("DualShock") || gamepad.displayName.Contains("DualSense"))
+                else if (gamepad.displayName.Contains("DualShock") || gamepad.displayName.Contains("DualSense")) // Check for PlayStation controllers (PS3/PS4/PS5)
                 {
                     LeftUpgradeControlsImage.sprite = PSL1; 
                     RightUpgradeControlsImage.sprite = PSR1;

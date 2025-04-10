@@ -6,10 +6,11 @@ public class XPOrb : MonoBehaviour
 
     private GameObject player;
     private CharacterStats characterStats;
-    public float moveSpeed = 10f; 
+    public float moveSpeed = 10f; // Speed at which the XP orb moves towards the player
     private Transform target;    
     private bool isMovingToTarget = false;
 
+    [Header("XP Range")]
     public int minXpRange;
     public int maxXpRange;
 
@@ -47,7 +48,7 @@ public class XPOrb : MonoBehaviour
     {
         if (characterStats != null)
         {
-            moveSpeed = characterStats.Speed + 5f; 
+            moveSpeed = characterStats.Speed + 5f; // Adjust the speed based on the character's speed
         }
         else
         {

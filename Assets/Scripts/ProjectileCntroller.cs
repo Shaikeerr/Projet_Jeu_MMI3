@@ -13,7 +13,7 @@ public class ProjectileController : MonoBehaviour
 
     [Header("Param�tres de Tir")]
     float fireRate;
-    public float nextFireTime = 0f;
+    private float nextFireTime = 0f;
     public float disapearTime = 5f;
 
     public int projectileDamage;
@@ -22,7 +22,7 @@ public class ProjectileController : MonoBehaviour
 
     private Coroutine shootingCoroutine;
 
-     public float rotationSpeed = 50f; 
+    private float rotationSpeed = 50f; 
     private PlayerControls inputActions;
     private Vector2 aimInput; 
 
@@ -104,7 +104,7 @@ void Update()
                 ShootProjectile();
                 nextFireTime = Time.time + 1f / fireRate;
             }
-            yield return new WaitForSeconds(1f / fireRate);
+            yield return new WaitForSeconds(1f / fireRate); 
         }
     }
 
@@ -115,7 +115,6 @@ void Update()
             Debug.LogError("FirePoint non assign� dans l'inspecteur.");
             return;
         }
-
         CharacterStats playerStats = CharacterManager.CharacterInstance.GetComponent<CharacterStats>();
         if (playerStats != null)
         {
@@ -126,11 +125,8 @@ void Update()
             Debug.LogError("CharacterStats non trouv� sur le joueur.");
             return;
         }
-
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
-
         if (rb != null)
         {
             rb.velocity = firePoint.forward * projectileSpeed;
@@ -139,7 +135,6 @@ void Update()
         {
             Debug.LogError("Le prefab du projectile n'a pas de Rigidbody attach�.");
         }
-
         ProjectileStats projectileStats = projectile.GetComponent<ProjectileStats>();
         if (projectileStats != null)
         {
@@ -149,57 +144,56 @@ void Update()
         {
             Debug.LogError("Le prefab du projectile n'a pas de script ProjectileStats attach�.");
         }
-
         Destroy(projectile, disapearTime);
     }
-
-    internal void IncreaseFireRate(float fireRateIncrease, float duration)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal void IncreaseFireRate(float fireRateIncrease)
-    {
-        throw new NotImplementedException();
-    }
-
-void RotateCharacterToMouse()
+void RotateCharacterToMouse() // Rotate the character to face the mouse position (Lot of comments in this function)
 {
-    Vector2 mousePosition = Mouse.current.position.ReadValue();
-    
-    Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-    
-    Plane groundPlane = new Plane(Vector3.up, transform.position);
-    
+    Vector2 mousePosition = Mouse.current.position.ReadValue(); // Get the mouse position in screen space
+
+    Ray ray = Camera.main.ScreenPointToRay(mousePosition); // Create a ray from the camera to the mouse position
+
+    Plane groundPlane = new Plane(Vector3.up, firePoint.position);  
+
     float rayDistance;
-    
+
     if (groundPlane.Raycast(ray, out rayDistance))
     {
-        Vector3 targetPoint = ray.GetPoint(rayDistance);
-        
-        Vector3 direction = (targetPoint - transform.position).normalized;
-        
+        Vector3 targetPoint = ray.GetPoint(rayDistance); // Get the point where the ray intersects the ground plane
+
+        // Calculate direction from firePoint to the target
+        Vector3 direction = (targetPoint - firePoint.position).normalized;
+
         if (direction.sqrMagnitude > 0.01f)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            
+
+            // Rotate the character to align with the firePoint's direction
             transform.rotation = Quaternion.Slerp(
-                transform.rotation, 
-                lookRotation, 
+                transform.rotation,
+                lookRotation,
                 Time.deltaTime * rotationSpeed
             );
         }
     }
 }
 
-private void RotateCharacter()
+private void RotateCharacter() // Rotate the character to face the joystick direction
 {
     Vector3 direction = new Vector3(aimInput.x, 0f, aimInput.y);
 
-    if (direction.sqrMagnitude > 0.01f) 
+    if (direction.sqrMagnitude > 0.01f)
     {
-        Quaternion lookRotation = Quaternion.LookRotation(direction); 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        // Adjust the direction to account for the firePoint's offset
+        Vector3 adjustedDirection = (firePoint.position + direction) - firePoint.position;
+
+        Quaternion lookRotation = Quaternion.LookRotation(adjustedDirection);
+
+        // Rotate the character smoothly
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            lookRotation,
+            Time.deltaTime * rotationSpeed
+        );
     }
 }
 }

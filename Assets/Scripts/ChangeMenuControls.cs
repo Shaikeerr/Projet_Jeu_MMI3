@@ -6,9 +6,10 @@ public class ChangeMenuControls : MonoBehaviour
 {
 
     public Image controlsImage; 
+
+    [Header("Gamepad Sprites")]
     public Sprite XBOXSprites;
     public Sprite PSSprites;
-
     public Sprite NoneSprite;
 
 
@@ -38,16 +39,16 @@ public class ChangeMenuControls : MonoBehaviour
 
     private void UpdateControlsDisplay()
     {
-        var activeDevice = InputSystem.GetDevice<InputDevice>();
+        var activeDevice = InputSystem.GetDevice<InputDevice>(); // Get the currently active device
 
         if (activeDevice != null)
         {
-            Debug.Log("Active device detected: " + activeDevice.displayName);
+            Debug.Log("Active device detected: " + activeDevice.displayName); // Log the name of the active device
             if (activeDevice is Gamepad gamepad)
             {
                 if (gamepad.displayName.Contains("Xbox"))
                 {
-                    controlsImage.sprite = XBOXSprites; // Set Xbox sprite
+                    controlsImage.sprite = XBOXSprites; 
                 }
                 else if (gamepad.displayName.Contains("DualShock") || gamepad.displayName.Contains("DualSense"))
                 {
@@ -57,7 +58,7 @@ public class ChangeMenuControls : MonoBehaviour
             else
             {
                 Debug.Log("No gamepad detected.");
-                controlsImage.sprite = NoneSprite; // Set None sprite if no gamepad is detected
+                controlsImage.sprite = NoneSprite; // Set None sprite if no gamepad is detected (Keyboard/Mouse)
             }
         }
     }

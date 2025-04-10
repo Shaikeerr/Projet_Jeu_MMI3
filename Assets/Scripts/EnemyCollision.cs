@@ -15,10 +15,10 @@ public class EnemyCollision : MonoBehaviour
                 playerStats.TakeDamage(enemyStats.Damage);
             }
 
-            GetComponent<Collider>().enabled = false;
+            GetComponent<Collider>().enabled = false; // Disable the collider to prevent multiple hits
             gameObject.SetActive(false);
 
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, 0.1f); 
 
         }
     }

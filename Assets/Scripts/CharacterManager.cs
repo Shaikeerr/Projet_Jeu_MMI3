@@ -6,31 +6,36 @@ using UnityEngine.InputSystem;
 
 public class CharacterManager : MonoBehaviour
 {
+
+    [Header("Character Stats")]
     public CharacterStats characterStats;
     public GameObject levelUpPopup;
 
+    [Header("Upgrade Buttons")]
     public Button LeftUpgradeButton;
     public Button RightUpgradeButton;
 
-    public Image textContainerLeftUpgrade;
-    public Image textureLeftUpgrade;
-    public Image textContainerRightUpgrade;
-    public Image textureRightUpgrade;
+    [Header("Upgrade Containers")]
+    [SerializeField] private Image textContainerLeftUpgrade;
+    [SerializeField] private Image textureLeftUpgrade;
+    [SerializeField] private Image textContainerRightUpgrade;
+    [SerializeField] private Image textureRightUpgrade;
 
-    public Sprite HealthSprite;
-    public Sprite HealthTextContainer;  
-    public Sprite FireRateSprite;
-    public Sprite FireRateTextContainer;
-    public Sprite DamageSprite;
-    public Sprite DamageTextContainer;
-    public Sprite SpeedSprite;
-    public Sprite SpeedTextContainer;
-    public Sprite MagnetSprite;
-    public Sprite MagnetTextContainer;
+    [Header("Upgrade Text Textures")]
+    [SerializeField] private Sprite HealthTextContainer;  
+    [SerializeField] private Sprite FireRateTextContainer;
+    [SerializeField] private Sprite DamageTextContainer;
+    [SerializeField] private Sprite SpeedTextContainer;
+    [SerializeField] private Sprite MagnetTextContainer;
 
-        private PlayerControls inputActions;
-    private Button currentButton;
+    [Header("Upgrade Sprites")]
+    [SerializeField] private Sprite HealthSprite;
+    [SerializeField] private Sprite FireRateSprite;
+    [SerializeField] private Sprite DamageSprite;
+    [SerializeField] private Sprite SpeedSprite;
+    [SerializeField] private Sprite MagnetSprite;
 
+    private PlayerControls inputActions;
 
     public static CharacterManager CharacterInstance { get; private set; }
 
@@ -57,28 +62,22 @@ private void OnEnable()
     inputActions.Player.Enable();
     inputActions.Player.LeftUpgrade.performed += OnLeftUpgrade;
     inputActions.Player.RightUpgrade.performed += OnRightUpgrade;
-
-    // Set the default selected button
-    currentButton = LeftUpgradeButton;
-    currentButton.Select();
 }
 
 private void OnDisable()
 {
     inputActions.Player.Disable();
     inputActions.Player.LeftUpgrade.performed -= OnLeftUpgrade;
-    inputActions.Player.RightUpgrade.performed -= OnRightUpgrade;
+    inputActions.Player.RightUpgrade.performed -= OnRightUpgrade; 
 }
 
-    private void OnLeftUpgrade(InputAction.CallbackContext context)
+    private void OnLeftUpgrade(InputAction.CallbackContext context) // WHen Left Bumper is pressed 
     {
-        Debug.Log("LB pressed");
         LeftUpgradeButton.onClick.Invoke();
     }
 
-    private void OnRightUpgrade(InputAction.CallbackContext context)
+    private void OnRightUpgrade(InputAction.CallbackContext context) // When Right Bumper is pressed
     {
-        Debug.Log("RB pressed");
         RightUpgradeButton.onClick.Invoke();
     }
 
@@ -126,16 +125,13 @@ private void OnDisable()
 
         Time.timeScale = 0;
 
-        int firstRandomUpgrade = Random.Range(0, UpgradeList.Length);
-        int secondRandomUpgrade = Random.Range(0, UpgradeList.Length);
+        int firstRandomUpgrade = Random.Range(0, UpgradeList.Length); // Randomly select the first upgrade
+        int secondRandomUpgrade = Random.Range(0, UpgradeList.Length); // Randomly select the second upgrade
 
-        while (firstRandomUpgrade == secondRandomUpgrade)
+        while (firstRandomUpgrade == secondRandomUpgrade) // If the same upgrade is selected as the 2nd, select a new one
         {
             secondRandomUpgrade = Random.Range(0, UpgradeList.Length);
         }
-
-        Debug.Log("Am�lioration 1 : " + UpgradeList[firstRandomUpgrade]);
-        Debug.Log("Am�lioration 2 : " + UpgradeList[secondRandomUpgrade]);
 
         switch (UpgradeList[firstRandomUpgrade])
         {
@@ -209,9 +205,9 @@ private void OnDisable()
     {
         characterStats.ApplyUpgrade(upgrade);
         characterStats.ResumeGame();
-        LeftUpgradeButton.onClick.RemoveAllListeners();
-        RightUpgradeButton.onClick.RemoveAllListeners();
-        levelUpPopup.SetActive(false);
+        LeftUpgradeButton.onClick.RemoveAllListeners(); // Remove all listeners to avoid multiple calls (especially with a controler)
+        RightUpgradeButton.onClick.RemoveAllListeners(); // Remove all listeners to avoid multiple calls (especially with a controler)
+        levelUpPopup.SetActive(false); 
     }
     
 }
